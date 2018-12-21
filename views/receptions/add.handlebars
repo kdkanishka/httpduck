@@ -1,0 +1,38 @@
+{{#each errors}}
+    <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="card card-body">
+    <h4>New Post Box Details</h4>
+    <div style="margin-top:15px"></div>
+    <form action="/receptions/{{receptionId}}" method="POST">
+        <div class="input-group">
+            <span class="input-group-addon">URL</span>
+            <input class="form-control" value="{{url}}">
+        </div>
+         <div class="input-group">
+        <small>
+            Supported Methods
+            <span class="badge badge-info">GET</span>
+            <span class="badge badge-success">POST</span>
+            <span class="badge badge-warning">PUT</span>
+            <span class="badge badge-danger">DELETE</span>
+        </small>
+        </div>
+
+        <div style="margin-top:15px"></div>
+        <div class="form-group">
+            <label for="responseBody">Response Body</label>
+            <textarea type="text" class="form-control" name="responseBody">{{responseBody}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        
+    </form>
+</div>
+
+<div style="margin-top:15px"></div>
+<div class="card card-body">
+        {{> _sample_requests }}
+</div>

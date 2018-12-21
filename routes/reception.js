@@ -15,7 +15,7 @@ router.post("/test", (req, res) => {
 
     properties.set('host', req.host);
     properties.set('IP', req.ip);
-    properties.set('protocol', req.protocol)
+    properties.set('protocol', req.protocol);
 
     for (var key in headers) {
         headerMap.set(key, headers[key]);

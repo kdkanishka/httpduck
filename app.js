@@ -2,6 +2,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 //constant definitions
 const port = process.env.PORT || 8080;
@@ -25,6 +26,10 @@ mongoose.connect(dbConfig.mongoURI)
 //middleware
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+//body-parser middleweare
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //end of middleware
 

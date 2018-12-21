@@ -21,4 +21,4 @@ const HttpDumpSchema = new Schema({
     }
 });
 
-mongoose.model('httdump', HttpDumpSchema)
+mongoose.model('httdump', HttpDumpSchema);
