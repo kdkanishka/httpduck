@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 //schema for http dump
 const HttpDumpSchema = new Schema({
+    method : {
+        type : String,
+        required : true
+    },
     body : {
         type : Buffer,
         required : false
@@ -18,6 +22,10 @@ const HttpDumpSchema = new Schema({
     date : {
         type : Date,
         default : Date.now
+    },
+    httpReceptionId : {
+        type : String,
+        required : true
     }
 });
 

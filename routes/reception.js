@@ -6,9 +6,47 @@ const router = express.Router();
 
 //import models
 require('../models/HttpDump')
+require('../models/HttpReception')
 const HttpDump = mongoose.model('httdump');
+const HttpReception = mongoose.model('httpreception')
+//routes
 
-router.post("/test", (req, res) => {
+router.get("/:id", (req, res) => {
+    handleRequest(req, res, "GET");
+});
+
+router.post("/:id", (req, res) => {
+    handleRequest(req, res, "POST");
+});
+
+router.put("/:id", (req, res) => {
+    handleRequest(req, res, "PUT");
+});
+
+router.delete("/:id", (req, res) => {
+    handleRequest(req, res, "DELETE");
+});
+
+//end of routes
+
+function handleRequest(req, res, method) {
+    HttpReception.findById({
+        _id: req.params.id
+    })
+        .then(httpReception => {
+            if (httpReception != null) {
+                processRequest(req, res, method, httpReception);
+            } else {
+                res.send("HTTP Reception is not defined or expired!");
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.send("Error Occured!");
+        });
+}
+
+function processRequest(req, res, method, httpReception) {
     const headers = req.headers
     const headerMap = new Map();
     const properties = new Map();
@@ -42,20 +80,21 @@ router.post("/test", (req, res) => {
 
         //persist
         const newHttpDump = {
-            body : finalBuffer,
-            headers : headerMap,
-            properties : properties
+            method : method,
+            body: finalBuffer,
+            headers: headerMap,
+            properties: properties,
+            httpReceptionId: httpReception._id
         };
 
         new HttpDump(newHttpDump).
-        save()
-        .then(httpdmp => {
-            res.send("Received & Saved!");
-        })
-        .catch(err => req.send("Error occured " + err));
+            save()
+            .then(httpdmp => {
+                res.send("Received & Saved!");
+            })
+            .catch(err => req.send("Error occured " + err));
 
     });
-
-});
+}
 
 module.exports = router;
