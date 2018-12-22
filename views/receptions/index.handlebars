@@ -1,7 +1,22 @@
 <div class="jumbotron text-center">
     <h1 class="display-5">HTTP/S Receptions</h1>
     <p class="lead">Description goes here...</p>
-    <a href="/receptions/add" class="btn btn-success btn-lg">Create a Reception</a>
+    <a href="/receptions/add/new" class="btn btn-success btn-lg">Create a Reception</a>
+
+    <a class="btn btn-secondary dropdown-toggle btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Select Reception
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {{!-- <a class="dropdown-item" href="#">Action2389ru2j4p2925i2409r2r4250934594</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a> --}}
+        {{#each httpReceptions}}
+            <a class="dropdown-item" href="/receptions/{{_id}}">{{_id}} <small>{{date}}</small></a>
+        {{/each}}
+    </div>
+
 </div>
 
 {{#each httpDumps}}
@@ -78,8 +93,8 @@
     </div>
     <hr />
     <div class="d-inline-flex p-1">
-        <a href="/receptions/add" class="btn btn-danger" style="margin:5px;">Delete</a>
-        <a href="/receptions/add" class="btn btn-info" style="margin:5px;">Save</a>
+        <a href="/receptions/delete" class="btn btn-danger" style="margin:5px;">Delete</a>
+        <a href="/receptions/save" class="btn btn-info" style="margin:5px;">Save</a>
     </div>
 </div>
 {{else}}

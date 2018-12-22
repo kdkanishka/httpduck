@@ -14,9 +14,35 @@ router.get('/', (req, res) => {
     HttpDump.find({})
         .sort({ date: 'desc' })
         .then(httpDumps => {
-            res.render('receptions/index', {
-                httpDumps : httpDumps
-            });
+            //retrieve http receptions
+            HttpReception.find({})
+                .sort({date : 'desc'})
+                .then(httpReceptions => {
+                    res.render('receptions/index', {
+                        httpDumps: httpDumps,
+                        httpReceptions : httpReceptions
+                    });
+                })
+        })
+        .catch(err => {
+            res.send("Error occured while retrieving http dumps")
+        });
+});
+
+//display http dumps for selected reception
+router.get('/:id', (req, res)=> {
+    HttpDump.find({httpReceptionId : req.params.id})
+        .sort({ date: 'desc' })
+        .then(httpDumps => {
+            //retrieve http receptions
+            HttpReception.find({})
+                .sort({date : 'desc'})
+                .then(httpReceptions => {
+                    res.render('receptions/index', {
+                        httpDumps: httpDumps,
+                        httpReceptions : httpReceptions
+                    });
+                })
         })
         .catch(err => {
             res.send("Error occured while retrieving http dumps")
@@ -24,7 +50,7 @@ router.get('/', (req, res) => {
 });
 
 //it will create a new httpreception when accessing this route
-router.get('/add', (req, res) => {
+router.get('/add/new', (req, res) => {
     const uuid = "394723492";
     const defaultResponse = "HTTP Duck Says Hello!";
 
@@ -70,7 +96,6 @@ router.post('/:id', (req, res) => {
             res.send(err)
         });
 });
-
 
 function getHostName() {
     if (typeof (process.env.APP_BASE_URL) != "undefined") {
