@@ -48,15 +48,14 @@ function handleRequest(req, res, method) {
 
 function processRequest(req, res, method, httpReception) {
     const headers = req.headers
-    const headerMap = new Map();
-    const properties = new Map();
-
-    properties.set('host', req.host);
-    properties.set('IP', req.ip);
-    properties.set('protocol', req.protocol);
-
+    const headerMap = [];
+    
     for (var key in headers) {
-        headerMap.set(key, headers[key]);
+        //headerMap.set(key, headers[key]);
+        headerMap.push({
+            key : key,
+            value : headers[key]
+        })
     }
     const file = fs.createWriteStream('/home/kanishka/Desktop/node/test');
 
@@ -80,10 +79,12 @@ function processRequest(req, res, method, httpReception) {
 
         //persist
         const newHttpDump = {
+            host : req.host,
+            ip : req.ip,
+            protocol : req.protocol,
             method : method,
             body: finalBuffer,
             headers: headerMap,
-            properties: properties,
             httpReceptionId: httpReception._id
         };
 

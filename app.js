@@ -27,6 +27,14 @@ mongoose.connect(dbConfig.mongoURI)
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+// Handlebars.helpers.registerHelper( 'eachInMap', function ( map, block ) {
+//     var out = '';
+//     Object.keys( map ).map(function( prop ) {
+//        out += block.fn( {key: prop, value: map[ prop ]} );
+//     });
+//     return out;
+//  } );
+
 //body-parser middleweare
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

@@ -4,6 +4,84 @@
     <a href="/receptions/add" class="btn btn-success btn-lg">Create a Reception</a>
 </div>
 
-<div class="card card-body mb-2">
-    
+{{#each httpDumps}}
+{{!--
+<hr /> --}}
+<div class="card mb-3">
+    <div class="card-header container">
+        <div class="row">
+            <div class="col-sm-6">
+                <p class="h6 card-title"><b>{{method}}</b> ({{protocol}}) </p>
+            </div>
+            <div class="col-sm-6">
+                <p class="text-right"><small>{{body.length}} bytes</small></p>
+            </div>
+        </div>
+        <p><small>From : {{ip}}</small></p>
+        <p class="text-left text-secondary"><small>{{date}}</small></p>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>HTTP Request Header</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each headers}}
+                <tr>
+                    <td><small><mark>{{key}}</mark></small></td>
+                    <td><small>{{value}}</small></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{#if body.length}}
+    <div class="card-body">
+        <div class="d-inline-flex p-2">
+            <p class="h6 card-title">Request payload size : {{body.length}} bytes</p>
+        </div>
+        <div class="d-inline-flex p-2">
+            <a href="/receptions/add" class="btn btn-primary">Download</a>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>HTTP Response Header</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each headers}}
+                <tr>
+                    <td><small><mark>{{key}}</mark></small></td>
+                    <td><small>{{value}}</small></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-body">
+        <div class="d-inline-flex p-2">
+            <p class="h6 card-title">Response payload size : {{body.length}} bytes</p>
+        </div>
+        <div class="d-inline-flex p-2">
+            <a href="/receptions/add" class="btn btn-primary">Download</a>
+        </div>
+    </div>
+    <hr />
+    <div class="d-inline-flex p-1">
+        <a href="/receptions/add" class="btn btn-danger" style="margin:5px;">Delete</a>
+        <a href="/receptions/add" class="btn btn-info" style="margin:5px;">Save</a>
+    </div>
 </div>
+{{else}}
+<p>No Data!</p>
+{{/each}}

@@ -3,6 +3,15 @@ const Schema = mongoose.Schema;
 
 //schema for http dump
 const HttpDumpSchema = new Schema({
+    host : {
+        type : String
+    },
+    ip : {
+        type : String
+    },
+    protocol : {
+        type : String
+    },
     method : {
         type : String,
         required : true
@@ -12,11 +21,7 @@ const HttpDumpSchema = new Schema({
         required : false
     },
     headers : {
-        type : Map,
-        required : false
-    },
-    properties : {
-        type : Map,
+        type : [{key : String, value : String}],
         required : false
     },
     date : {
