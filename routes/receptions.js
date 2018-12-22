@@ -23,9 +23,12 @@ router.get('/', (req, res) => {
                         httpReceptions : httpReceptions
                     });
                 })
+                .catch(err =>{
+                    res.send("Error occured while retrieving receptions");
+                });
         })
         .catch(err => {
-            res.send("Error occured while retrieving http dumps")
+            res.send("Error occured while retrieving http dumps");
         });
 });
 
@@ -43,6 +46,9 @@ router.get('/:id', (req, res)=> {
                         httpReceptions : httpReceptions
                     });
                 })
+                .catch(err =>{
+                    res.send("Error occured while retrieving receptions");
+                });
         })
         .catch(err => {
             res.send("Error occured while retrieving http dumps")
@@ -95,6 +101,19 @@ router.post('/:id', (req, res) => {
         }).catch(err => {
             res.send(err)
         });
+});
+
+//delete route for a selected http dump
+router.get('/dump/:id/delete', (req, res)=> {
+    HttpDump.deleteOne({_id : req.params.id})
+    .then(()=>{
+        req.flash('success_msg', 'HttpDump removed successfully!');
+        res.redirect('/receptions')
+    })
+    .catch(err =>{
+        console.log(err);
+        res.send("Unable to delete")
+    })
 });
 
 function getHostName() {
