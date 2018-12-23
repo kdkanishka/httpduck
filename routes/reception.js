@@ -91,7 +91,7 @@ function processRequest(req, res, method, httpReception) {
         new HttpDump(newHttpDump).
             save()
             .then(httpdmp => {
-                res.send("Received & Saved!");
+                res.send(httpReception.body);
             })
             .catch(err => req.send("Error occured " + err));
 
