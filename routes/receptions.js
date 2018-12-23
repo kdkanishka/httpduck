@@ -110,7 +110,7 @@ router.post('/:id', (req, res) => {
 router.get('/dump/:id/delete', (req, res)=> {
     HttpDump.deleteOne({_id : req.params.id})
     .then(()=>{
-        req.flash('success_msg', 'HttpDump removed successfully!');
+        req.flash('warning_msg', 'HttpDump Removed Successfully!');
         res.redirect('/receptions')
     })
     .catch(err =>{

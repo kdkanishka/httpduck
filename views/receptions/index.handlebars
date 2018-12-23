@@ -26,7 +26,8 @@
             <span class="input-group-text" id="basic-addon1">URL</span>
         </div>
         <input type="text" class="form-control" aria-describedby="basic-addon1" value = {{receptionUrl}} >
-        <a href="/receptions/{{selectedReceptionId}}/delete" class="btn btn-danger">Delete</a>
+        <a href="/receptions/{{selectedReceptionId}}/delete" class="btn btn-danger"
+         data-toggle="confirmation" data-title="Are you sure?">Delete</a>
     </div>
 </div>
 {{/if}}
@@ -106,7 +107,7 @@
     </div>
     <hr />
     <div class="d-inline-flex p-1">
-        <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;">Delete</a>
+        <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation" data-title="Are you sure?">Delete</a>
         <a href="/receptions/save" class="btn btn-info" style="margin:5px;">Save</a>
     </div>
 </div>

@@ -1,4 +1,5 @@
 //required packages
+const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
@@ -40,6 +41,9 @@ app.set('view engine', 'handlebars');
 //body-parser middleweare
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//static resource directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 //express middleware for session
 app.use(session({
