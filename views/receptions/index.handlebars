@@ -9,15 +9,28 @@
     </a>
 
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        {{!-- <a class="dropdown-item" href="#">Action2389ru2j4p2925i2409r2r4250934594</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a> --}}
         {{#each httpReceptions}}
-            <a class="dropdown-item" href="/receptions/{{_id}}">{{_id}} <small>{{date}}</small></a>
+        <a class="dropdown-item" href="/receptions/{{_id}}">{{_id}} <small>{{date}}</small></a>
         {{/each}}
     </div>
 
 </div>
+
+<!--Indicating selected reception here-->
+{{#if indexView}}
+{{else}}
+<div class="card card-body mb-3">
+    <p>Selected reception</p>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">URL</span>
+        </div>
+        <input type="text" class="form-control" aria-describedby="basic-addon1" value = {{receptionUrl}} >
+        <a href="/receptions/{{selectedReceptionId}}/delete" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+{{/if}}
+<!--End of indicating selected reception -->
 
 {{#each httpDumps}}
 {{!--

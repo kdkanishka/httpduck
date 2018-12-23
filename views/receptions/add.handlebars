@@ -1,25 +1,25 @@
 {{#each errors}}
-    <div class="alert alert-danger">{{text}}</div>
+<div class="alert alert-danger">{{text}}</div>
 {{else}}
 
 {{/each}}
 
 <div class="card card-body">
     <h4>New Post Box Details</h4>
-    <div style="margin-top:15px"></div>
+    {{!-- <div style="margin-top:15px"></div> --}}
     <form action="/receptions/{{receptionId}}" method="POST">
-        <div class="input-group">
-            <span class="input-group-addon">URL</span>
-            <input class="form-control" value="{{url}}">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">URL</span>
+            <input class="form-control" value="{{url}}" aria-describedby="basic-addon1">
         </div>
-         <div class="input-group">
-        <small>
-            Supported Methods
-            <span class="badge badge-info">GET</span>
-            <span class="badge badge-success">POST</span>
-            <span class="badge badge-warning">PUT</span>
-            <span class="badge badge-danger">DELETE</span>
-        </small>
+        <div class="input-group">
+            <small class="text-secondary">
+                Supported Methods
+                <span class="badge badge-info">GET</span>
+                <span class="badge badge-success">POST</span>
+                <span class="badge badge-warning">PUT</span>
+                <span class="badge badge-danger">DELETE</span>
+            </small>
         </div>
 
         <div style="margin-top:15px"></div>
@@ -28,11 +28,11 @@
             <textarea type="text" class="form-control" name="responseBody">{{responseBody}}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
-        
+
     </form>
 </div>
 
 <div style="margin-top:15px"></div>
 <div class="card card-body">
-        {{> _sample_requests }}
+    {{> _sample_requests }}
 </div>

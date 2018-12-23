@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const {getHostName} = require('../helpers/hostnameutils');
 
 const router = express.Router();
 
@@ -20,7 +21,8 @@ router.get('/', (req, res) => {
                 .then(httpReceptions => {
                     res.render('receptions/index', {
                         httpDumps: httpDumps,
-                        httpReceptions : httpReceptions
+                        httpReceptions : httpReceptions,
+                        indexView : true
                     });
                 })
                 .catch(err =>{
@@ -42,6 +44,8 @@ router.get('/:id', (req, res)=> {
                 .sort({date : 'desc'})
                 .then(httpReceptions => {
                     res.render('receptions/index', {
+                        receptionUrl: getHostName() + "/reception/" + req.params.id,
+                        selectedReceptionId : req.params.id,
                         httpDumps: httpDumps,
                         httpReceptions : httpReceptions
                     });
@@ -57,7 +61,6 @@ router.get('/:id', (req, res)=> {
 
 //it will create a new httpreception when accessing this route
 router.get('/add/new', (req, res) => {
-    const uuid = "394723492";
     const defaultResponse = "HTTP Duck Says Hello!";
 
     //create new http reception
@@ -116,12 +119,27 @@ router.get('/dump/:id/delete', (req, res)=> {
     })
 });
 
-function getHostName() {
-    if (typeof (process.env.APP_BASE_URL) != "undefined") {
-        return process.env.APP_BASE_URL;
-    } else {
-        return "localhost:8080";
-    }
-}
+//delete route for receptions
+router.get('/:id/delete', (req, res)=> {
+    //first find the reception to delete
+    HttpDump.deleteMany({
+        httpReceptionId : req.params.id
+    })
+    .then(() => {
+        HttpReception.deleteOne({
+            _id : req.params.id
+        })
+        .then(() =>{
+            req.flash('warning_msg', 'HttpReception and Associated HttpDumps Removed Successfully!');
+            res.redirect('/receptions');
+        })
+        .catch(err =>{
+            res.send("Error when deleting HttpReception")
+        });
+    })
+    .catch(err =>{
+        res.send("Error when deleting HttpDump")
+    });
+});
 
 module.exports = router;
