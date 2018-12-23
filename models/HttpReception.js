@@ -7,6 +7,9 @@ const HttpReceptionSchema = new Schema ({
         type : Buffer,
         required : false
     },
+    name : {
+        type : String
+    },
     date : {
         type : Date,
         default : Date.now

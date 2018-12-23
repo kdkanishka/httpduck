@@ -90,6 +90,7 @@ router.post('/:id', (req, res) => {
         .then(httpReception => {
             const newHttpReceptionBody = Buffer.from(req.body.responseBody, "UTF-8");
             httpReception.body = newHttpReceptionBody;
+            httpReception.name = req.body.name;
 
             httpReception.save()
                 .then(updatedHttpReception => {
