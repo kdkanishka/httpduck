@@ -24,6 +24,7 @@
 
                     <div class="d-flex flex-row form-group ">
                         <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value="">
+                        &nbsp;
                         <input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value="">
                         <button class="btn btn-success" type="button" onclick="addHeaderFields();"> <span class="fas fa-plus"
                                 aria-hidden="true"></span> </button>
@@ -66,7 +67,7 @@
         var objTo = document.getElementById('dynamicHeaderContainer');
         var divtest = document.createElement("div");
         divtest.setAttribute("class", "form-group removeclass"+room);
-        divtest.innerHTML = ' <div class="d-flex flex-row "> <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value=""> <input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value=""> <button class="btn btn-danger" type="button" onclick="removeHeaderFields('+room+');"> <span class="fas fa-minus" aria-hidden="true"></span> </button> </div>';
+        divtest.innerHTML = ' <div class="d-flex flex-row "> <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value="">&nbsp;<input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value=""> <button class="btn btn-danger" type="button" onclick="removeHeaderFields('+room+');"> <span class="fas fa-minus" aria-hidden="true"></span> </button> </div>';
         objTo.appendChild(divtest);
     }
 

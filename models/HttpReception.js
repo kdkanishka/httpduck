@@ -7,6 +7,10 @@ const HttpReceptionSchema = new Schema ({
         type : Buffer,
         required : false
     },
+    responseHeaders : {
+        type : [{key : String, value : String}],
+        required : false
+    },
     name : {
         type : String
     },
