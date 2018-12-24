@@ -39,7 +39,7 @@ app.set('view engine', 'handlebars');
 //  } );
 
 //body-parser middleweare
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //static resource directory

@@ -16,6 +16,21 @@
             <label for="details">Name</label>
             <input name="name" class="form-control" value="" aria-describedby="basic-addon-name">
         </div>
+        <div class="form-group">
+            <div class="card">
+                <div class="card-body" id="dynamicHeaderContainer">
+                    <h6 class="card-title">Response Headers</h6>
+
+                    <div class="d-flex flex-row form-group ">
+                        <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value="">
+                        <input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value="">
+                        <button class="btn btn-success" type="button" onclick="addHeaderFields();"> <span class="fas fa-plus"
+                                aria-hidden="true"></span> </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <div class="input-group">
             <small class="text-secondary">
                 Supported Methods
@@ -40,3 +55,20 @@
 <div class="card card-body">
     {{> _sample_requests }}
 </div>
+
+<script type="text/javascript">
+    var room = 1;
+
+    function addHeaderFields(){
+        room++;
+        var objTo = document.getElementById('dynamicHeaderContainer');
+        var divtest = document.createElement("div");
+        divtest.setAttribute("class", "form-group removeclass"+room);
+        divtest.innerHTML = ' <div class="d-flex flex-row "> <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value=""> <input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value=""> <button class="btn btn-danger" type="button" onclick="removeHeaderFields('+room+');"> <span class="fas fa-minus" aria-hidden="true"></span> </button> </div>';
+        objTo.appendChild(divtest);
+    }
+
+    function removeHeaderFields(rid) {
+        $('.removeclass' + rid).remove();
+    }
+</script>
