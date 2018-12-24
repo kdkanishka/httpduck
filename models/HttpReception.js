@@ -11,6 +11,14 @@ const HttpReceptionSchema = new Schema ({
         type : [{key : String, value : String}],
         required : false
     },
+    responseStatus : {
+        type : Number,
+        default : 200
+    },
+    reasonPhrase : {
+        type : String,
+        default : ""
+    },
     name : {
         type : String
     },

@@ -49,12 +49,12 @@ function handleRequest(req, res, method) {
 function processRequest(req, res, method, httpReception) {
     const headers = req.headers
     const headerMap = [];
-    
+
     for (var key in headers) {
         //headerMap.set(key, headers[key]);
         headerMap.push({
-            key : key,
-            value : headers[key]
+            key: key,
+            value: headers[key]
         })
     }
     const file = fs.createWriteStream('/home/kanishka/Desktop/node/test');
@@ -79,10 +79,10 @@ function processRequest(req, res, method, httpReception) {
 
         //persist
         const newHttpDump = {
-            host : req.host,
-            ip : req.ip,
-            protocol : req.protocol,
-            method : method,
+            host: req.host,
+            ip: req.ip,
+            protocol: req.protocol,
+            method: method,
             body: finalBuffer,
             headers: headerMap,
             httpReceptionId: httpReception._id
@@ -91,9 +91,19 @@ function processRequest(req, res, method, httpReception) {
         new HttpDump(newHttpDump).
             save()
             .then(httpdmp => {
-                res.send(httpReception.body);
+                var idx = 0;
+                for (; idx < httpReception.responseHeaders.length; idx++) {
+                    const headerKey = httpReception.responseHeaders[idx].key;
+                    const headerVal = httpReception.responseHeaders[idx].value;
+                    res.setHeader(headerKey, headerVal);
+                }
+                res.writeHead(httpReception.responseStatus, httpReception.reasonPhrase);
+                res.end(httpReception.body);
             })
-            .catch(err => req.send("Error occured " + err));
+            .catch(err => {
+                console.log(err);
+                res.send("Error occured " + err)
+            });
 
     });
 }

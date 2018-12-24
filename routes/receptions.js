@@ -92,7 +92,9 @@ router.post('/:id', (req, res) => {
             const newHttpReceptionBody = Buffer.from(req.body.responseBody, "UTF-8");
             httpReception.body = newHttpReceptionBody;
             httpReception.name = req.body.name;
-            
+            httpReception.responseStatus = req.body.status;
+            httpReception.reasonPhrase = req.body.reasonPhrase;
+
             var idx = 0;
             const headerMap = [];
             //add user defined headers to http reception
