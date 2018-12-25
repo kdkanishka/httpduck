@@ -96,6 +96,7 @@ function processRequest(req, res, method, httpReception) {
             protocol: req.protocol,
             method: method,
             body: finalBuffer,
+            responseBody : httpReception.body,
             headers: headerMap,
             responseHeaders : responseHeaders,
             httpReceptionId: httpReception._id

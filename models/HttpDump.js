@@ -3,38 +3,42 @@ const Schema = mongoose.Schema;
 
 //schema for http dump
 const HttpDumpSchema = new Schema({
-    host : {
-        type : String
+    host: {
+        type: String
     },
-    ip : {
-        type : String
+    ip: {
+        type: String
     },
-    protocol : {
-        type : String
+    protocol: {
+        type: String
     },
-    method : {
-        type : String,
-        required : true
+    method: {
+        type: String,
+        required: true
     },
-    body : {
-        type : Buffer,
-        required : false
+    body: {
+        type: Buffer,
+        required: false
     },
-    headers : {
-        type : [{key : String, value : String}],
-        required : false
+    responseBody: {
+        type: Buffer,
+        required: false
     },
-    responseHeaders : {
-        type : [{key : String, value : String}],
-        required : false
+    headers: {
+        type: [{ key: String, value: String }],
+        required: false
     },
-    date : {
-        type : Date,
-        default : Date.now
+    responseHeaders: {
+        type: [{ key: String, value: String }],
+        required: false
     },
-    httpReceptionId : {
-        type : String,
-        required : true
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    httpReceptionId: {
+        type: String,
+        required: true
     }
 });
 
