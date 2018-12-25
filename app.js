@@ -82,6 +82,12 @@ app.get("/", (req, res)=> {
     });
 });
 
+app.get("/about", (req, res)=> {
+    res.render('about',{
+
+    });
+})
+
 //use reception router
 app.use('/reception', receptionRoute);
 app.use('/receptions', receptionsRoute);
