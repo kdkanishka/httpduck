@@ -76,7 +76,7 @@ router.get('/add/new', (req, res) => {
     newHttpReception.save()
         .then(httpReception => {
             res.render('receptions/add', {
-                url: hostNameUtils.getHostName() + "/reception/" + httpReception._id,
+                url: envUtils.getHostName() + "/reception/" + httpReception._id,
                 receptionId: httpReception._id,
                 responseBody: defaultResponse
             });
@@ -107,7 +107,6 @@ router.post('/:id', upload.single('responsePayload'), (req, res) => {
                 //delete file
                 fs.unlinkSync(path);
                 httpReception.body = fileBuff;
-
             }
 
             var idx = 0;

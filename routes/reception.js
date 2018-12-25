@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const envUtils = require('../helpers/envutils');
+const crypto = require("crypto");
 
 const router = express.Router();
 
@@ -25,6 +27,16 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
     handleRequest(req, res, "DELETE");
+});
+
+//route for downloading request payload
+router.get("/download/requestpayload/:id", (req, res) => {
+    handleDownload(req, res, true);
+});
+
+//route for fownloading reesponse payload
+router.get("/download/responsepayload/:id", (req, res) => {
+    handleDownload(req, res, false);
 });
 
 //end of routes
@@ -84,8 +96,8 @@ function processRequest(req, res, method, httpReception) {
             const headerKey = httpReception.responseHeaders[idx].key;
             const headerVal = httpReception.responseHeaders[idx].value;
             responseHeaders.push({
-                key : headerKey,
-                value : headerVal
+                key: headerKey,
+                value: headerVal
             });
         }
 
@@ -96,9 +108,9 @@ function processRequest(req, res, method, httpReception) {
             protocol: req.protocol,
             method: method,
             body: finalBuffer,
-            responseBody : httpReception.body,
+            responseBody: httpReception.body,
             headers: headerMap,
-            responseHeaders : responseHeaders,
+            responseHeaders: responseHeaders,
             httpReceptionId: httpReception._id
         };
 
@@ -120,6 +132,43 @@ function processRequest(req, res, method, httpReception) {
             });
 
     });
+}
+
+//handle common download request
+function handleDownload(req, res, isRequestDownload) {
+    HttpDump.findById({
+        _id: req.params.id
+    })
+        .then(httpdmp => {
+            var buffer;
+            if(isRequestDownload){
+                buffer = httpdmp.body;
+            }else{
+                buffer = httpdmp.responseBody;
+            }
+
+            //write response payload to temp location
+            const randomFileName = crypto.randomBytes(16).toString("hex");
+            const filePath = envUtils.getTempDir() + randomFileName;
+            fs.writeFile(filePath, buffer, (err) => {
+                if (err) {
+                    res.send("Unable to write file");
+                }
+                else {
+                    //download written file
+                    res.download(filePath, randomFileName, (err) => {
+                        if (err) {
+                            res.send("Unable to download file!");
+                        }
+                        //try to delete temp file
+                        fs.unlinkSync(filePath);
+                    });
+                }
+            });
+        })
+        .catch(err => {
+            res.send("Error when retrieving http dump");
+        });
 }
 
 module.exports = router;
