@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const { getHostName } = require('../helpers/hostnameutils');
+const envUtils = require('../helpers/envutils');
 
 const multer = require('multer');
-const upload = multer({ dest: '/home/kanishka/Desktop/node/' })
+const upload = multer({ dest: envUtils.getTempDir()})
 
 const router = express.Router();
 
@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
                 .sort({ date: 'desc' })
                 .then(httpReceptions => {
                     res.render('receptions/index', {
-                        receptionUrl: getHostName() + "/reception/" + req.params.id,
+                        receptionUrl: envUtils.getHostName() + "/reception/" + req.params.id,
                         selectedReceptionId: req.params.id,
                         httpDumps: httpDumps,
                         httpReceptions: httpReceptions
@@ -76,7 +76,7 @@ router.get('/add/new', (req, res) => {
     newHttpReception.save()
         .then(httpReception => {
             res.render('receptions/add', {
-                url: getHostName() + "/reception/" + httpReception._id,
+                url: hostNameUtils.getHostName() + "/reception/" + httpReception._id,
                 receptionId: httpReception._id,
                 responseBody: defaultResponse
             });
