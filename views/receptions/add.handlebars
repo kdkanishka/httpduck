@@ -8,14 +8,15 @@
 <div class="card card-body">
     <h4>New Post Box Details</h4>
     {{!-- <div style="margin-top:15px"></div> --}}
-    <form action="/receptions/{{receptionId}}" method="POST">
+    <form action="/receptions/{{receptionId}}" method="POST" enctype="multipart/form-data">
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">URL</span>
             <input class="form-control" value="{{url}}" aria-describedby="basic-addon1">
         </div>
         <div class="form-group">
             <label for="details">Name</label>
-            <input name="name" class="form-control" placeholder="Short name to identify the reception easily" value="" aria-describedby="basic-addon-name">
+            <input name="name" class="form-control" placeholder="Short name to identify the reception easily" value=""
+                aria-describedby="basic-addon-name">
         </div>
         <div class="form-group">
             <label for="details">Response Status</label>
@@ -24,7 +25,7 @@
         <div class="form-group">
             <label for="details">Reason Phrase</label>
             <input name="reasonPhrase" placeholder="Reason phrase" class="form-control" value="" aria-describedby="basic-addon-name">
-        </div>        
+        </div>
         <div class="form-group">
             <div class="card">
                 <div class="card-body" id="dynamicHeaderContainer">
@@ -33,7 +34,8 @@
                     <div class="d-flex flex-row form-group ">
                         <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value="">
                         &nbsp;
-                        <input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value="">
+                        <input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control"
+                            value="">
                         <button class="btn btn-success" type="button" onclick="addHeaderFields();"> <span class="fas fa-plus"
                                 aria-hidden="true"></span> </button>
                     </div>
@@ -41,6 +43,19 @@
             </div>
 
         </div>
+
+        <div class="card card-body mb-3">
+            <div class="form-group">
+                <label for="responseBody">Response Body</label>
+                <textarea type="text" class="form-control" name="responseBody">{{responseBody}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="responsePayloadFile">Binary Response</label>
+                <input type="file" class="form-control-file" name="responsePayload" id="responsePayloadFile" />
+            </div>
+        </div>
+        <!--Set of badges to indicate supported methods-->
         <div class="input-group">
             <small class="text-secondary">
                 Supported Methods
@@ -50,14 +65,10 @@
                 <span class="badge badge-danger">DELETE</span>
             </small>
         </div>
+        <!-- end of set of badges -->
 
-        <div style="margin-top:15px"></div>
-        <div class="form-group">
-            <label for="responseBody">Response Body</label>
-            <textarea type="text" class="form-control" name="responseBody">{{responseBody}}</textarea>
-        </div>
         <button type="submit" class="btn btn-primary">
-        <span class="fas fa-save" aria-hidden="true"></span> Update</button>
+            <span class="fas fa-save" aria-hidden="true"></span> Update</button>
 
     </form>
 </div>
@@ -70,12 +81,12 @@
 <script type="text/javascript">
     var room = 1;
 
-    function addHeaderFields(){
+    function addHeaderFields() {
         room++;
         var objTo = document.getElementById('dynamicHeaderContainer');
         var divtest = document.createElement("div");
-        divtest.setAttribute("class", "form-group removeclass"+room);
-        divtest.innerHTML = ' <div class="d-flex flex-row "> <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value="">&nbsp;<input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value=""> <button class="btn btn-danger" type="button" onclick="removeHeaderFields('+room+');"> <span class="fas fa-minus" aria-hidden="true"></span> </button> </div>';
+        divtest.setAttribute("class", "form-group removeclass" + room);
+        divtest.innerHTML = ' <div class="d-flex flex-row "> <input type="text" placeholder="HTTP Header Name" name="header[]" class="form-control" value="">&nbsp;<input type="text" placeholder="HTTP Header Value" name="headerVal[]" class="form-control" value=""> <button class="btn btn-danger" type="button" onclick="removeHeaderFields(' + room + ');"> <span class="fas fa-minus" aria-hidden="true"></span> </button> </div>';
         objTo.appendChild(divtest);
     }
 

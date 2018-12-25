@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const {getHostName} = require('../helpers/hostnameutils');
+const fs = require('fs');
+const { getHostName } = require('../helpers/hostnameutils');
+
+const multer = require('multer');
+const upload = multer({ dest: '/home/kanishka/Desktop/node/' })
 
 const router = express.Router();
 
@@ -17,15 +21,15 @@ router.get('/', (req, res) => {
         .then(httpDumps => {
             //retrieve http receptions
             HttpReception.find({})
-                .sort({date : 'desc'})
+                .sort({ date: 'desc' })
                 .then(httpReceptions => {
                     res.render('receptions/index', {
                         httpDumps: httpDumps,
-                        httpReceptions : httpReceptions,
-                        indexView : true
+                        httpReceptions: httpReceptions,
+                        indexView: true
                     });
                 })
-                .catch(err =>{
+                .catch(err => {
                     res.send("Error occured while retrieving receptions");
                 });
         })
@@ -35,22 +39,22 @@ router.get('/', (req, res) => {
 });
 
 //display http dumps for selected reception
-router.get('/:id', (req, res)=> {
-    HttpDump.find({httpReceptionId : req.params.id})
+router.get('/:id', (req, res) => {
+    HttpDump.find({ httpReceptionId: req.params.id })
         .sort({ date: 'desc' })
         .then(httpDumps => {
             //retrieve http receptions
             HttpReception.find({})
-                .sort({date : 'desc'})
+                .sort({ date: 'desc' })
                 .then(httpReceptions => {
                     res.render('receptions/index', {
                         receptionUrl: getHostName() + "/reception/" + req.params.id,
-                        selectedReceptionId : req.params.id,
+                        selectedReceptionId: req.params.id,
                         httpDumps: httpDumps,
-                        httpReceptions : httpReceptions
+                        httpReceptions: httpReceptions
                     });
                 })
-                .catch(err =>{
+                .catch(err => {
                     res.send("Error occured while retrieving receptions");
                 });
         })
@@ -83,7 +87,7 @@ router.get('/add/new', (req, res) => {
 });
 
 //update route for httpreception
-router.post('/:id', (req, res) => {
+router.post('/:id', upload.single('responsePayload'), (req, res) => {
     console.log("");
     HttpReception.findOne({
         _id: req.params.id
@@ -95,17 +99,28 @@ router.post('/:id', (req, res) => {
             httpReception.responseStatus = req.body.status;
             httpReception.reasonPhrase = req.body.reasonPhrase;
 
+            //check file uploaded
+            if (typeof req.file != "undefined") {
+                const path = req.file.path;
+                //process file
+                const fileBuff = fs.readFileSync(path);
+                //delete file
+                fs.unlinkSync(path);
+                httpReception.body = fileBuff;
+
+            }
+
             var idx = 0;
             const headerMap = [];
             //add user defined headers to http reception
-            for(;idx < req.body.header.length;idx++){
+            for (; idx < req.body.header.length; idx++) {
                 const headerName = req.body.header[idx];
                 const headerValue = req.body.headerVal[idx];
                 // don't accept header values with empty strings
-                if(headerName.length > 0){
+                if (headerName.length > 0) {
                     headerMap.push({
-                        key : headerName,
-                        value : headerValue
+                        key: headerName,
+                        value: headerValue
                     })
                 }
             }
@@ -127,39 +142,39 @@ router.post('/:id', (req, res) => {
 });
 
 //delete route for a selected http dump
-router.get('/dump/:id/delete', (req, res)=> {
-    HttpDump.deleteOne({_id : req.params.id})
-    .then(()=>{
-        req.flash('warning_msg', 'HttpDump Removed Successfully!');
-        res.redirect('/receptions')
-    })
-    .catch(err =>{
-        console.log(err);
-        res.send("Unable to delete")
-    })
+router.get('/dump/:id/delete', (req, res) => {
+    HttpDump.deleteOne({ _id: req.params.id })
+        .then(() => {
+            req.flash('warning_msg', 'HttpDump Removed Successfully!');
+            res.redirect('/receptions')
+        })
+        .catch(err => {
+            console.log(err);
+            res.send("Unable to delete")
+        })
 });
 
 //delete route for receptions
-router.get('/:id/delete', (req, res)=> {
+router.get('/:id/delete', (req, res) => {
     //first find the reception to delete
     HttpDump.deleteMany({
-        httpReceptionId : req.params.id
+        httpReceptionId: req.params.id
     })
-    .then(() => {
-        HttpReception.deleteOne({
-            _id : req.params.id
+        .then(() => {
+            HttpReception.deleteOne({
+                _id: req.params.id
+            })
+                .then(() => {
+                    req.flash('warning_msg', 'HttpReception and Associated HttpDumps Removed Successfully!');
+                    res.redirect('/receptions');
+                })
+                .catch(err => {
+                    res.send("Error when deleting HttpReception")
+                });
         })
-        .then(() =>{
-            req.flash('warning_msg', 'HttpReception and Associated HttpDumps Removed Successfully!');
-            res.redirect('/receptions');
-        })
-        .catch(err =>{
-            res.send("Error when deleting HttpReception")
+        .catch(err => {
+            res.send("Error when deleting HttpDump")
         });
-    })
-    .catch(err =>{
-        res.send("Error when deleting HttpDump")
-    });
 });
 
 module.exports = router;

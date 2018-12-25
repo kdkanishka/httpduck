@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
 
+
 //constant definitions
 const port = process.env.PORT || 8080;
 
@@ -39,6 +40,7 @@ app.set('view engine', 'handlebars');
 //  } );
 
 //body-parser middleweare
+// app.use(multer({dest:'/home/kanishka/Desktop/node/'}).single('file'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
