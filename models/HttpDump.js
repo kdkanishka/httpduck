@@ -24,6 +24,10 @@ const HttpDumpSchema = new Schema({
         type : [{key : String, value : String}],
         required : false
     },
+    responseHeaders : {
+        type : [{key : String, value : String}],
+        required : false
+    },
     date : {
         type : Date,
         default : Date.now

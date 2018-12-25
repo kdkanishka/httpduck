@@ -77,6 +77,18 @@ function processRequest(req, res, method, httpReception) {
         finalBuffer = Buffer.concat(chunks);
         console.log("DONE!" + finalBuffer.length);
 
+        //headers to be sent
+        const responseHeaders = [];
+        var idx = 0;
+        for (; idx < httpReception.responseHeaders.length; idx++) {
+            const headerKey = httpReception.responseHeaders[idx].key;
+            const headerVal = httpReception.responseHeaders[idx].value;
+            responseHeaders.push({
+                key : headerKey,
+                value : headerVal
+            });
+        }
+
         //persist
         const newHttpDump = {
             host: req.host,
@@ -85,6 +97,7 @@ function processRequest(req, res, method, httpReception) {
             method: method,
             body: finalBuffer,
             headers: headerMap,
+            responseHeaders : responseHeaders,
             httpReceptionId: httpReception._id
         };
 
@@ -92,9 +105,9 @@ function processRequest(req, res, method, httpReception) {
             save()
             .then(httpdmp => {
                 var idx = 0;
-                for (; idx < httpReception.responseHeaders.length; idx++) {
-                    const headerKey = httpReception.responseHeaders[idx].key;
-                    const headerVal = httpReception.responseHeaders[idx].value;
+                for (; idx < responseHeaders.length; idx++) {
+                    const headerKey = responseHeaders[idx].key;
+                    const headerVal = responseHeaders[idx].value;
                     res.setHeader(headerKey, headerVal);
                 }
                 res.writeHead(httpReception.responseStatus, httpReception.reasonPhrase);
