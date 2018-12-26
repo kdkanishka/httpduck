@@ -25,10 +25,10 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">URL</span>
         </div>
-        <input type="text" class="form-control" aria-describedby="basic-addon1" value = {{receptionUrl}} >
-        <a href="/receptions/{{selectedReceptionId}}/delete" class="btn btn-danger"
-         data-toggle="confirmation" data-title="Are you sure?">
-         <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
+        <input type="text" class="form-control" aria-describedby="basic-addon1" value={{receptionUrl}}>
+        <a href="/receptions/{{selectedReceptionId}}/delete" class="btn btn-danger" data-toggle="confirmation"
+            data-title="Are you sure?">
+            <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
     </div>
 </div>
 {{/if}}
@@ -71,11 +71,11 @@
     {{#if body.length}}
     <div class="card-body">
         <div class="d-inline-flex p-2">
-            <p class="h6 card-title">Request payload size : {{body.length}} bytes</p>
+            <a href="/reception/download/requestpayload/{{_id}}" target="_blank" class="btn btn-primary">
+                <span class="fas fa-download" aria-hidden="true"></span> Download</a>
         </div>
         <div class="d-inline-flex p-2">
-            <a href="/reception/download/requestpayload/{{_id}}" target="_blank" class="btn btn-primary">
-            <span class="fas fa-download" aria-hidden="true"></span> Download</a>
+            <p class="h6 card-title">Request payload size : {{body.length}} bytes</p>
         </div>
     </div>
     {{/if}}
@@ -101,19 +101,20 @@
 
     <div class="card-body">
         <div class="d-inline-flex p-2">
-            <p class="h6 card-title">Response payload size : {{responseBody.length}} bytes</p>
+            <a href="/reception/download/responsepayload/{{_id}}" target="_blank" class="btn btn-primary">
+                <span class="fas fa-download" aria-hidden="true"></span> Download</a>
         </div>
         <div class="d-inline-flex p-2">
-            <a href="/reception/download/responsepayload/{{_id}}" target="_blank" class="btn btn-primary">
-            <span class="fas fa-download" aria-hidden="true"></span> Download</a>
+            <p class="h6 card-title">Response payload size : {{responseBody.length}} bytes</p>
         </div>
     </div>
     <hr />
     <div class="d-inline-flex p-1">
-        <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation" data-title="Are you sure?">
-        <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
+        <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation"
+            data-title="Are you sure?">
+            <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
         <a href="/receptions/save" class="btn btn-info" style="margin:5px;">
-        <span class="fas fa-save" aria-hidden="true"></span> Save</a>
+            <span class="fas fa-save" aria-hidden="true"></span> Save</a>
     </div>
 </div>
 {{else}}
