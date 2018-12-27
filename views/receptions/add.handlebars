@@ -6,11 +6,13 @@
 {{/each}}
 
 <div class="card card-body">
-    <h4>New Post Box Details</h4>
+    <h4>New HTTP Reception Definition</h4>
     {{!-- <div style="margin-top:15px"></div> --}}
     <form action="/receptions/{{receptionId}}" method="POST" enctype="multipart/form-data">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">URL</span>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Request URL</span>
+            </div>
             <input class="form-control" value="{{url}}" aria-describedby="basic-addon1">
         </div>
         <div class="form-group">
