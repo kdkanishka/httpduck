@@ -46,11 +46,7 @@ const HttpDumpSchema = new Schema({
     },
     httpReceptionId: {
         type: String,
-        required: true
-    },
-    httpInterceptionId : {
-        type : String,
-        required : false
+        required: false
     }
 });
 

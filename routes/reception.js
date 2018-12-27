@@ -7,8 +7,9 @@ const crypto = require("crypto");
 const router = express.Router();
 
 //import models
-require('../models/HttpDump')
-require('../models/HttpReception')
+require('../models/HttpDump');
+require('../models/HttpReception');
+
 const HttpDump = mongoose.model('httdump');
 const HttpReception = mongoose.model('httpreception')
 //routes
@@ -74,6 +75,7 @@ function processRequest(req, res, method, httpReception) {
     let chunks = [];
     let finalBuffer;
 
+    //record request body
     req.on('data', chunk => {
         chunks.push(chunk);
         console.log("temp" + chunks.length)
@@ -84,7 +86,7 @@ function processRequest(req, res, method, httpReception) {
                 res.send("IO Error!");
             }
         })
-    }).on('end', () => {
+    }).on('end', () => {//received all the data from the request
         file.end();
         finalBuffer = Buffer.concat(chunks);
         console.log("DONE!" + finalBuffer.length);

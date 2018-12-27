@@ -22,7 +22,7 @@ router.get('/add', (req, res)=>{
     newHttpInterception.save()
     .then(createdHttpInterception => {
         res.render('interceptions/add', {
-            url : envUtils.getHostName() + "/interceptions/" + newHttpInterception._id,
+            url : envUtils.getHostName() + "/interception/" + newHttpInterception._id,
             interceptionId : createdHttpInterception._id
         });
     })

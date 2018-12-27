@@ -18,6 +18,7 @@ const app = express();
 const receptionRoute = require('./routes/reception');
 const receptionsRoute = require('./routes/receptions');
 const interceptionsRoute = require('./routes/interceptions');
+const interceptionRoute = require('./routes/interception');
 
 //db connection
 const dbConfig = require('./config/database')
@@ -92,6 +93,7 @@ app.get("/about", (req, res)=> {
 app.use('/reception', receptionRoute);
 app.use('/receptions', receptionsRoute);
 app.use('/interceptions', interceptionsRoute);
+app.use('/interception', interceptionRoute);
 
 //end of http handlers
 
