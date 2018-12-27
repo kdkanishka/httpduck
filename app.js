@@ -93,8 +93,6 @@ app.use('/reception', receptionRoute);
 app.use('/receptions', receptionsRoute);
 app.use('/interceptions', interceptionsRoute);
 
-
-
 //end of http handlers
 
 //start express listeners

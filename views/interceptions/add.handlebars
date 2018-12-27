@@ -1,0 +1,53 @@
+<!-- https://bootsnipp.com/snippets/AXVrV -->
+{{#each errors}}
+<div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+
+<div class="card card-body">
+    <h4>New Post Box Details</h4>
+    {{!-- <div style="margin-top:15px"></div> --}}
+    <form action="/interceptions/{{interceptionId}}" method="POST">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Request URL</span>
+            </div>
+            <input class="form-control" value="{{url}}" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Forward URL</span>
+            </div>
+            <input name="forwardUrl" class="form-control" value="" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="form-group">
+            <label for="details">Name</label>
+            <input name="name" class="form-control" placeholder="Short name to identify the interception easily" value=""
+                aria-describedby="basic-addon-name">
+        </div>
+        <!--Set of badges to indicate supported methods-->
+        <div class="input-group">
+            <small class="text-secondary">
+                Supported Methods
+                <span class="badge badge-info">GET</span>
+                <span class="badge badge-success">POST</span>
+                <span class="badge badge-warning">PUT</span>
+                <span class="badge badge-danger">DELETE</span>
+            </small>
+        </div>
+        <!-- end of set of badges -->
+
+        <button type="submit" class="btn btn-primary">
+            <span class="fas fa-save" aria-hidden="true"></span> Update</button>
+
+    </form>
+</div>
+
+<div style="margin-top:15px"></div>
+<div class="card card-body">
+    {{> _sample_requests }}
+</div>
