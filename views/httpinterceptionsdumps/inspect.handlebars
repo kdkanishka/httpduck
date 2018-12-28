@@ -16,11 +16,12 @@
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" role="tab" data-toggle="tab" aria-controls="originalRequest" aria-selected="true"
-                href="#originalRequest"><span class="fas fa-angle-double-down" aria-hidden="true"></span> Original Request</a>
+                href="#originalRequest"><span class="fas fa-angle-double-down" aria-hidden="true"></span> Original
+                Request</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" role="tab" data-toggle="tab" aria-controls="forwadedRequest" aria-selected="false"
-             href="#forwadedRequest"><span class="fas fa-angle-double-up" aria-hidden="true"></span> Forwaded Request</a>
+            <a class="nav-link" role="tab" data-toggle="tab" aria-controls="forwadedRequest" aria-selected="false" href="#forwadedRequest"><span
+                    class="fas fa-angle-double-up" aria-hidden="true"></span> Forwaded Request</a>
         </li>
     </ul>
 
@@ -146,9 +147,19 @@
                     <p class="h6 card-title">Response payload size : {{forwardedRequestDump.responseBody.length}} bytes</p>
                 </div>
             </div>
-            {{/if}}            
+            {{/if}}
             <!-- End of the area for displaying forwaded http request-->
         </div>
     </div>
+    <hr />
+    <div class="d-inline-flex p-1">
+        <a href="/interceptions/dump/{{httpImterceptionDump._id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation"
+            data-title="Are you sure?">
+            <span class="fas fa-trash" aria-hidden="true"></span> Delete
+        </a>
 
+        <a href="/receptions/save" class="btn btn-info" style="margin:5px;">
+            <span class="fas fa-save" aria-hidden="true"></span> Save
+        </a>
+    </div>
 </div>

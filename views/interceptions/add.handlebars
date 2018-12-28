@@ -21,8 +21,8 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Forward URL</span>
             </div>
-            <input name="forwardUrl" class="form-control" value="" aria-describedby="basic-addon1"
-            placeholder="Target URL where the reqest to be forwarded" required>
+            <input name="forwardUrl" class="form-control" value="" aria-describedby="basic-addon1" placeholder="Target URL where the reqest to be forwarded"
+                required>
         </div>
 
         <div class="form-group">
@@ -44,6 +44,11 @@
 
         <button type="submit" class="btn btn-primary">
             <span class="fas fa-save" aria-hidden="true"></span> Update</button>
+
+        <a href="/receptions/{{receptionId}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation"
+            data-title="Are you sure?">
+            <span class="fas fa-trash" aria-hidden="true"></span> Delete
+        </a>
 
     </form>
 </div>

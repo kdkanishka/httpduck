@@ -82,7 +82,7 @@ function processRequest(req, res, method, httpInterception) {
 
         //STEP 1) save http dump
         const originalHttpRequestDump = {
-            host: req.host,
+            host: req.hostname,
             ip: req.ip,
             protocol: req.protocol,
             method: method,

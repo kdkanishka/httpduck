@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
                 .sort({ date: 'desc' })
                 .then(httpInterceptions => {
                     res.render('interceptions/index', {
-                        httpInterceptionDumps : httpInterceptionDumps,
-                        httpInterceptions : httpInterceptions,
+                        httpInterceptionDumps: httpInterceptionDumps,
+                        httpInterceptions: httpInterceptions,
                         indexView: true
                     });
                 })
@@ -35,8 +35,8 @@ router.get('/', (req, res) => {
 });
 
 //display only selected http reception
-router.get('/:id', (req, res)=> {
-    HttpInterceptionDump.find({httpInterceptionId : req.params.id})
+router.get('/:id', (req, res) => {
+    HttpInterceptionDump.find({ httpInterceptionId: req.params.id })
         .sort({ date: 'desc' })
         .then(httpInterceptionDumps => {
             HttpInterception.find({})
@@ -45,8 +45,8 @@ router.get('/:id', (req, res)=> {
                     res.render('interceptions/index', {
                         interceptionUrl: envUtils.getHostName() + "/interception/" + req.params.id,
                         selectedInterceptionId: req.params.id,
-                        httpInterceptionDumps : httpInterceptionDumps,
-                        httpInterceptions : httpInterceptions
+                        httpInterceptionDumps: httpInterceptionDumps,
+                        httpInterceptions: httpInterceptions
                     });
                 })
                 .catch(err => {
@@ -99,5 +99,41 @@ router.post('/:id', (req, res) => {
             res.send("Error!" + err);
         })
 })
+
+//delete route for a selected http interception dump
+router.get('/dump/:id/delete', (req, res) => {
+    HttpInterceptionDump.deleteOne({ _id: req.params.id })
+        .then(() => {
+            req.flash('warning_msg', 'Http Interception Dump Removed Successfully!');
+            res.redirect('/interceptions')
+        })
+        .catch(err => {
+            console.log(err);
+            res.send("Unable to delete")
+        })
+});
+
+//delete route for receptions
+router.get('/:id/delete', (req, res) => {
+    //first find the reception to delete
+    HttpInterceptionDump.deleteMany({
+        httpInterceptionId: req.params.id
+    })
+        .then(() => {
+            HttpInterception.deleteOne({
+                _id: req.params.id
+            })
+                .then(() => {
+                    req.flash('warning_msg', 'HttpInterception and Associated Interceptiondumps Removed Successfully!');
+                    res.redirect('/interceptions');
+                })
+                .catch(err => {
+                    res.send("Error when deleting HttpReception")
+                });
+        })
+        .catch(err => {
+            res.send("Error when deleting HttpDump")
+        });
+});
 
 module.exports = router;
