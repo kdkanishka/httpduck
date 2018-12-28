@@ -1,7 +1,67 @@
 <div class="jumbotron text-center">
     <h1 class="display-5">HTTP/S Interceptions</h1>
     <p class="lead">Description goes here...</p>
-    <a href="/interceptions/add" class="btn btn-success btn-lg">Create an Interception</a>
+    <a href="/interceptions/add/new" class="btn btn-success btn-lg">Create an Interception</a>
 
+    <a class="btn btn-secondary dropdown-toggle btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Select Interception
+    </a>
 
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {{#each httpInterceptions}}
+        <a class="dropdown-item" href="/interceptions/{{_id}}">{{_id}} [{{name}}] <small>{{date}}</small></a>
+        {{/each}}
+    </div>
 </div>
+
+<!--Indicating selected reception here-->
+{{#if indexView}}
+{{else}}
+<div class="card card-body mb-3">
+    <p>Selected reception</p>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">URL</span>
+        </div>
+        <input type="text" class="form-control" aria-describedby="basic-addon1" value={{interceptionUrl}}>
+        <a href="/interceptions/{{selectedInterceptionId}}/delete" class="btn btn-danger" data-toggle="confirmation"
+            data-title="Are you sure?">
+            <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
+    </div>
+</div>
+{{/if}}
+<!--End of indicating selected reception -->
+
+{{#each httpInterceptionDumps}}
+{{!--
+<hr /> --}}
+<div class="card mb-3">
+    <div class="card-header container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4><span class="badge badge-secondary">{{method}}</span> ({{fromProtocol}} -> {{toProtocol}}) </h4>
+            </div>
+            <div class="col-sm-6">
+                <p class="text-right"><small>{{payloadSize}} bytes</small></p>
+            </div>
+        </div>
+        <p><small>{{fromIp}} -> {{toHost}}</small></p>
+        <p class="text-left text-secondary"><small>{{date}}</small></p>
+    </div>
+    <div class="card-body">
+        
+    </div>
+
+    <hr />
+    <div class="d-inline-flex p-1">
+        <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation"
+            data-title="Are you sure?">
+            <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
+        <a href="/receptions/save" class="btn btn-info" style="margin:5px;">
+            <span class="fas fa-save" aria-hidden="true"></span> Save</a>
+    </div>
+</div>
+{{else}}
+<p>No Data!</p>
+{{/each}}

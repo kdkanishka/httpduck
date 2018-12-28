@@ -152,6 +152,12 @@ function processRequest(req, res, method, httpInterception) {
                             .then(savedForwardedHttpRequestDump => {
                                 //save http interception dump
                                 new HttpInterceptionDump({
+                                    fromIp: req.ip,
+                                    toHost: httpInterception.forwardUrl,
+                                    method: method,
+                                    fromProtocol: req.protocol,
+                                    toProtocol: httpInterception.forwardUrl.toUpperCase().startsWith("HTTPS") ? "https" : "http",
+                                    payloadSize: finalBuffer.length,
                                     httpInterceptionId: httpInterception._id,
                                     originalRequestDumpId: savedOriginalHttpRequestDump._id,
                                     forwardedRequestDumpId: savedForwardedHttpRequestDump._id
@@ -160,7 +166,7 @@ function processRequest(req, res, method, httpInterception) {
                                     .then(savedHttpInterceptionDump => {
                                         //Time to perform STEP 4 : Responding to the original requester
                                         var idx = 0;
-                                        for(;idx < forwadedResponseHeadersMap.length;idx++){
+                                        for (; idx < forwadedResponseHeadersMap.length; idx++) {
                                             const headerKey = forwadedResponseHeadersMap[idx].key;
                                             const headerVal = forwadedResponseHeadersMap[idx].value;
                                             res.setHeader(headerKey, headerVal);
