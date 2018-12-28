@@ -1,5 +1,58 @@
 <div class="jumbotron text-center">
-    <h1 class="display-3">{{title}}</h1>
-    <p class="lead">Welcome!</p>
+    <h1 class="display-3">HTTPDuck</h1>
+    <h4>Using <strong>HTTPDuck</strong> you'll be able to define HTTP/S
+        <strong>receptors</strong> and <strong>interceptors</strong>. So you can analyse any HTTP transaction.
+    </h4>
+    <p class="lead text-secondary">Check below diagram to understand how it works!</p>
     <a href="/receptions" class="btn btn-dark btn-lg">Start Here!</a>
+</div>
+
+<div class="card-group">
+    <div class="card" style="width: 40rem;">
+        <img class="card-img-top" src="/img/diagrams/http_receptor.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">
+                In this configuration, user will be able to define a HTTP receptor alongo with all the properties for
+                the expected reply.
+                Following variables can be defined for the expected HTTP response.
+                <ul>
+                    <li>HTTP response code</li>
+                    <li>HTTP reason phrase</li>
+                    <li>Any number of HTTP headers</li>
+                    <li>HTTP body in</li>
+                    <ul>
+                        <li>Plain text</li>
+                        <li>Binary file</li>
+                    </ul>
+                    <li>Supported HTTP methods are</li>
+                    <ul>
+                        <li>GET</li>
+                        <li>POST</li>
+                        <li>PUT</li>
+                        <li>DELETE</li>
+                    </ul>
+                </ul>
+            </p>
+        </div>
+    </div>
+    <div class="card" style="width: 40rem;">
+        <img class="card-img-top" src="/img/diagrams/http_interceptor.jpg" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text">
+                Once you configure a HTTP interceptor, <strong>HTTPDuck</strong> will work as a man in the middle
+                for a given HTTP/S server. It will record all the necessary properties of the HTTP transaction such as.
+                <ul>
+                    <li>Original HTTP request/response (requester to interceptor)</li>
+                    <li>Forwaded HTTP request/response (interceptor to target)</li>
+                    <li>Useful properties of the transaction, such as</li>
+                    <ul>
+                        <li>HTTP Body</li>
+                        <li>Headers</li>
+                        <li>IP, Host Names, Date</li>
+                    </ul>
+                    <li>All the HTTP methods are supported as in receptor</li>
+                </ul>
+            </p>
+        </div>
+    </div>
 </div>
