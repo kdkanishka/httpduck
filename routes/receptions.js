@@ -4,7 +4,7 @@ const fs = require('fs');
 const envUtils = require('../helpers/envutils');
 
 const multer = require('multer');
-const upload = multer({ dest: envUtils.getTempDir()})
+const upload = multer({ dest: envUtils.getTempDir() })
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ const HttpDump = mongoose.model('httdump');
 
 //receptions index page
 router.get('/', (req, res) => {
-    HttpDump.find({})
+    HttpDump.find({ httpReceptionId: { $ne: null } })
         .sort({ date: 'desc' })
         .then(httpDumps => {
             //retrieve http receptions
