@@ -1,0 +1,154 @@
+<div class="card mb-3">
+    <div class="card-header container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4><span class="badge badge-secondary">{{httpImterceptionDump.method}}</span>
+                    ({{httpImterceptionDump.fromProtocol}} -> {{httpImterceptionDump.toProtocol}}) </h4>
+            </div>
+            <div class="col-sm-6">
+                <p class="text-right"><small>{{httpImterceptionDump.payloadSize}} bytes</small></p>
+            </div>
+        </div>
+        <p><small>{{httpImterceptionDump.fromIp}} -> {{httpImterceptionDump.toHost}}</small></p>
+        <p class="text-left text-secondary"><small>{{httpImterceptionDump.date}}</small></p>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" role="tab" data-toggle="tab" aria-controls="originalRequest" aria-selected="true"
+                href="#originalRequest">Original Request</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" role="tab" data-toggle="tab" aria-controls="forwadedRequest" aria-selected="false" href="#forwadedRequest">Forwaded
+                Request</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="originalRequest" class="tab-pane fade show active">
+            <!-- Display area for original request -->
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>HTTP Request Header</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each originalRequestDump.headers}}
+                        <tr>
+                            <td><small><mark>{{key}}</mark></small></td>
+                            <td><small>{{value}}</small></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{#if originalRequestDump.body.length}}
+            <div class="card-body">
+                <div class="d-inline-flex p-2">
+                    <a href="/reception/download/requestpayload/{{originalRequestDump._id}}" target="_blank" class="btn btn-primary">
+                        <span class="fas fa-download" aria-hidden="true"></span> Download</a>
+                </div>
+                <div class="d-inline-flex p-2">
+                    <p class="h6 card-title">Request payload size : {{originalRequestDump.body.length}} bytes</p>
+                </div>
+            </div>
+            {{/if}}
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>HTTP Response Header</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each originalRequestDump.responseHeaders}}
+                        <tr>
+                            <td><small><mark>{{key}}</mark></small></td>
+                            <td><small>{{value}}</small></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{#if originalRequestDump.responseBody.length}}
+            <div class="card-body">
+                <div class="d-inline-flex p-2">
+                    <a href="/reception/download/responsepayload/{{originalRequestDump._id}}" target="_blank" class="btn btn-primary">
+                        <span class="fas fa-download" aria-hidden="true"></span> Download</a>
+                </div>
+                <div class="d-inline-flex p-2">
+                    <p class="h6 card-title">Response payload size : {{originalRequestDump.responseBody.length}} bytes</p>
+                </div>
+            </div>
+            {{/if}}
+            <!-- End of the display area for original request-->
+        </div>
+        <div id="forwadedRequest" class="tab-pane fade">
+            <!-- Area for displaying forwaded http request-->
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>HTTP Request Header</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each forwardedRequestDump.headers}}
+                        <tr>
+                            <td><small><mark>{{key}}</mark></small></td>
+                            <td><small>{{value}}</small></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{#if forwardedRequestDump.body.length}}
+            <div class="card-body">
+                <div class="d-inline-flex p-2">
+                    <a href="/reception/download/requestpayload/{{forwardedRequestDump._id}}" target="_blank" class="btn btn-primary">
+                        <span class="fas fa-download" aria-hidden="true"></span> Download</a>
+                </div>
+                <div class="d-inline-flex p-2">
+                    <p class="h6 card-title">Request payload size : {{forwardedRequestDump.body.length}} bytes</p>
+                </div>
+            </div>
+            {{/if}}
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>HTTP Response Header</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each forwardedRequestDump.responseHeaders}}
+                        <tr>
+                            <td><small><mark>{{key}}</mark></small></td>
+                            <td><small>{{value}}</small></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{#if forwardedRequestDump.responseBody.length}}
+            <div class="card-body">
+                <div class="d-inline-flex p-2">
+                    <a href="/reception/download/responsepayload/{{forwardedRequestDump._id}}" target="_blank" class="btn btn-primary">
+                        <span class="fas fa-download" aria-hidden="true"></span> Download</a>
+                </div>
+                <div class="d-inline-flex p-2">
+                    <p class="h6 card-title">Response payload size : {{forwardedRequestDump.responseBody.length}} bytes</p>
+                </div>
+            </div>
+            {{/if}}            
+            <!-- End of the area for displaying forwaded http request-->
+        </div>
+    </div>
+
+</div>

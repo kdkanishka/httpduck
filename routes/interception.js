@@ -95,6 +95,7 @@ function processRequest(req, res, method, httpInterception) {
             .then(savedOriginalHttpRequestDump => {
                 //Time to forward request
                 const forwadedRequestHeaderMap = {};
+                const forwardedRequestHeaderArr = [];
                 var idx = 0;
                 for (; idx < originalRequestHeaderMap.length; idx++) {
                     //drop the header 'host'
@@ -102,6 +103,10 @@ function processRequest(req, res, method, httpInterception) {
                     const hdrVal = originalRequestHeaderMap[idx].value;
                     if (hdrName.toUpperCase() != "HOST") {
                         forwadedRequestHeaderMap[hdrName] = hdrVal;
+                        forwardedRequestHeaderArr.push({
+                            key: hdrName,
+                            value: hdrVal
+                        });
                     }
                 }
 
@@ -142,7 +147,7 @@ function processRequest(req, res, method, httpInterception) {
                             protocol: req.protocol, //TODO review
                             method: method,
                             body: finalBuffer,
-                            headers: forwadedRequestHeaderMap,
+                            headers: forwardedRequestHeaderArr,
                             responseBody: body,
                             responseHeaders: forwadedResponseHeadersMap //TODO add response headers here
                         }
@@ -164,15 +169,24 @@ function processRequest(req, res, method, httpInterception) {
                                 })
                                     .save()
                                     .then(savedHttpInterceptionDump => {
-                                        //Time to perform STEP 4 : Responding to the original requester
-                                        var idx = 0;
-                                        for (; idx < forwadedResponseHeadersMap.length; idx++) {
-                                            const headerKey = forwadedResponseHeadersMap[idx].key;
-                                            const headerVal = forwadedResponseHeadersMap[idx].value;
-                                            res.setHeader(headerKey, headerVal);
-                                        }
-                                        res.writeHead(response.statusCode, response.statusMessage);
-                                        res.end(body);
+                                        savedOriginalHttpRequestDump.responseHeaders = forwadedResponseHeadersMap;
+                                        savedOriginalHttpRequestDump.responseBody = body;
+                                        savedOriginalHttpRequestDump.save()
+                                            .then(savedOriginalHttpRequestDump => {
+                                                //Time to perform STEP 4 : Responding to the original requester
+                                                var idx = 0;
+                                                for (; idx < forwadedResponseHeadersMap.length; idx++) {
+                                                    const headerKey = forwadedResponseHeadersMap[idx].key;
+                                                    const headerVal = forwadedResponseHeadersMap[idx].value;
+                                                    res.setHeader(headerKey, headerVal);
+                                                }
+                                                res.writeHead(response.statusCode, response.statusMessage);
+                                                res.end(body);
+                                            })
+                                            .catch(err => {
+                                                console.log(err);
+                                                res.send("Unable to save original http request dump" + err);
+                                            })
                                     })
                                     .catch(err => {
                                         console.log(err);

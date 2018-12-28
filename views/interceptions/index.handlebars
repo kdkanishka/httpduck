@@ -50,16 +50,8 @@
         <p class="text-left text-secondary"><small>{{date}}</small></p>
     </div>
     <div class="card-body">
-        
-    </div>
-
-    <hr />
-    <div class="d-inline-flex p-1">
-        <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation"
-            data-title="Are you sure?">
-            <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
-        <a href="/receptions/save" class="btn btn-info" style="margin:5px;">
-            <span class="fas fa-save" aria-hidden="true"></span> Save</a>
+        <a href="/interceptiondumps/{{_id}}" class="btn btn-primary" >
+            <span class="fas fa-project-diagram" aria-hidden="true"></span> Inspect</a>
     </div>
 </div>
 {{else}}

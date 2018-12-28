@@ -99,6 +99,7 @@
         </table>
     </div>
 
+    {{#if responseBody.length}}
     <div class="card-body">
         <div class="d-inline-flex p-2">
             <a href="/reception/download/responsepayload/{{_id}}" target="_blank" class="btn btn-primary">
@@ -108,6 +109,7 @@
             <p class="h6 card-title">Response payload size : {{responseBody.length}} bytes</p>
         </div>
     </div>
+    {{/if}}
     <hr />
     <div class="d-inline-flex p-1">
         <a href="/receptions/dump/{{_id}}/delete" class="btn btn-danger" style="margin:5px;" data-toggle="confirmation"

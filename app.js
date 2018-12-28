@@ -19,6 +19,7 @@ const receptionRoute = require('./routes/reception');
 const receptionsRoute = require('./routes/receptions');
 const interceptionsRoute = require('./routes/interceptions');
 const interceptionRoute = require('./routes/interception');
+const interceptionDumpsRoute = require('./routes/interceptiondumps');
 
 //db connection
 const dbConfig = require('./config/database')
@@ -94,6 +95,7 @@ app.use('/reception', receptionRoute);
 app.use('/receptions', receptionsRoute);
 app.use('/interceptions', interceptionsRoute);
 app.use('/interception', interceptionRoute);
+app.use('/interceptiondumps', interceptionDumpsRoute);
 
 //end of http handlers
 
