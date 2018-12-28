@@ -105,7 +105,7 @@ function processRequest(req, res, method, httpReception) {
 
         //persist
         const newHttpDump = {
-            host: req.host,
+            host: req.hostname,
             ip: req.ip,
             protocol: req.protocol,
             method: method,
