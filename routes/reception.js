@@ -70,27 +70,14 @@ function processRequest(req, res, method, httpReception) {
             value: headers[key]
         })
     }
-    const file = fs.createWriteStream('/home/kanishka/Desktop/node/test');
-
     let chunks = [];
     let finalBuffer;
 
     //record request body
     req.on('data', chunk => {
         chunks.push(chunk);
-        console.log("temp" + chunks.length)
-
-        file.write(chunk, (error) => {
-            if (error != null) {
-                console.log(error);
-                res.send("IO Error!");
-            }
-        })
     }).on('end', () => {//received all the data from the request
-        file.end();
         finalBuffer = Buffer.concat(chunks);
-        console.log("DONE!" + finalBuffer.length);
-
         //headers to be sent
         const responseHeaders = [];
         var idx = 0;
