@@ -22,12 +22,18 @@
     <p>Selected reception</p>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">URL</span>
+            <span class="input-group-text" id="basic-addon1">Request URL</span>
         </div>
         <input type="text" class="form-control" aria-describedby="basic-addon1" value={{interceptionUrl}}>
-        <a href="/interceptions/{{selectedInterceptionId}}/delete" class="btn btn-danger" data-toggle="confirmation"
+        <a href="/interceptions/{{selectedInterception._id}}/delete" class="btn btn-danger" data-toggle="confirmation"
             data-title="Are you sure?">
             <span class="fas fa-trash" aria-hidden="true"></span> Delete</a>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Forward URL</span>
+        </div>
+        <input type="text" class="form-control" aria-describedby="basic-addon1" value={{selectedInterception.forwardUrl}}>
     </div>
 </div>
 {{/if}}
@@ -50,7 +56,7 @@
         <p class="text-left text-secondary"><small>{{date}}</small></p>
     </div>
     <div class="card-body">
-        <a href="/interceptiondumps/{{_id}}" class="btn btn-primary" >
+        <a href="/interceptiondumps/{{_id}}" class="btn btn-primary">
             <span class="fas fa-project-diagram" aria-hidden="true"></span> Inspect</a>
     </div>
 </div>

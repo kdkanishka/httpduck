@@ -42,12 +42,20 @@ router.get('/:id', (req, res) => {
             HttpInterception.find({})
                 .sort({ date: 'desc' })
                 .then(httpInterceptions => {
-                    res.render('interceptions/index', {
-                        interceptionUrl: envUtils.getHostName() + "/interception/" + req.params.id,
-                        selectedInterceptionId: req.params.id,
-                        httpInterceptionDumps: httpInterceptionDumps,
-                        httpInterceptions: httpInterceptions
-                    });
+                    HttpInterception.findById({
+                        _id: req.params.id
+                    })
+                        .then(selectedInterception => {
+                            res.render('interceptions/index', {
+                                interceptionUrl: envUtils.getHostName() + "/interception/" + req.params.id,
+                                selectedInterception : selectedInterception,
+                                httpInterceptionDumps: httpInterceptionDumps,
+                                httpInterceptions: httpInterceptions
+                            });
+                        })
+                        .catch(err => {
+
+                        });
                 })
                 .catch(err => {
                     res.send("Error occured while retrieving http interceptions");
