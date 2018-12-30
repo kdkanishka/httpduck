@@ -6,10 +6,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const envUtils = require('./helpers/envutils');
 
 
 //constant definitions
-const port = process.env.PORT || 8080;
+const port = envUtils.getServerPort();
+const host = envUtils.getServerHost();
 
 //initialize express
 const app = express();
@@ -100,6 +102,6 @@ app.use('/interceptiondumps', interceptionDumpsRoute);
 //end of http handlers
 
 //start express listeners
-app.listen(port, () => {
+app.listen(port,host, () => {
     console.log("HTTPDuck started.")
 });

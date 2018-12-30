@@ -1,5 +1,5 @@
 module.exports = {
-    getHostName  : function() {
+    getHostName: function () {
         if (typeof (process.env.APP_BASE_URL) != "undefined") {
             return process.env.APP_BASE_URL;
         } else {
@@ -7,11 +7,20 @@ module.exports = {
         }
     },
 
-    getTempDir : function() {
-        if(typeof (process.env.APP_TEMP_DIR) != "undefined") {
+    getTempDir: function () {
+        if (typeof (process.env.APP_TEMP_DIR) != "undefined") {
             return process.env.APP_TEMP_DIR;
-        }else{
+        } else {
             return "/home/kanishka/Desktop/node/";
         }
+    },
+
+    getServerPort: function () {
+        return process.env.ALWAYSDATA_HTTPD_PORT || process.env.PORT || 8080;
+    },
+
+    getServerHost: function () {
+        return process.env.ALWAYSDATA_HTTPD_IP || "0.0.0.0";
     }
+
 }
