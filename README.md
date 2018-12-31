@@ -44,8 +44,8 @@ MongoDB is used to persist all the data.
 `APP_TEMP_DIR` : Temporary file path that is used to manipulate files in basic operations.
 
 ## User Guide
-- [How to record a HTTP request](https://github.com/kdkanishka/httpduck/blob/master/docs/USERGUIDe.md)
-- [Act like a man in the Middle for a HTTP transaction](https://github.com/kdkanishka/httpduck/blob/master/docs/USERGUIDe.md)
+- [How to record a HTTP request](https://github.com/kdkanishka/httpduck/blob/master/docs/receptor.md)
+- [Act like a man in the Middle for a HTTP transaction](https://github.com/kdkanishka/httpduck/blob/master/docs/interceptor.md)
 
 ## Support / Contact
 Having troubles setting up HTTPDuck ? Contact me via kdkanishka@gmail.com .
