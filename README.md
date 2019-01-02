@@ -52,3 +52,4 @@ Having troubles setting up HTTPDuck ? Contact me via kdkanishka@gmail.com .
 
 ## Contributions
 Your contributions are welcome. Please feel free to suggest improvements, report bugs and new features :) 
+![](https://sstatic1.histats.com/0.gif?4201594&101)
