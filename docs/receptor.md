@@ -3,7 +3,7 @@
 This configuration allows you to record a http request and define the expected response
 
 ## Step 1
-Go to receptions section in the navigation bar and simply click on "Create Reception" button. 
+Go to Receptions section in the navigation bar and simply click on "Create Reception" button. 
 
 ![Fig1.0](https://raw.githubusercontent.com/kdkanishka/httpduck/master/docs/images/reception/Selection_187.png)
 
