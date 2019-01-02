@@ -11,7 +11,7 @@ module.exports = {
         if (typeof (process.env.APP_TEMP_DIR) != "undefined") {
             return process.env.APP_TEMP_DIR;
         } else {
-            return "/tmp";
+            return "~/tmp";
         }
     },
 

@@ -45,8 +45,8 @@ app.set('view engine', 'handlebars');
 
 //body-parser middleweare
 // app.use(multer({dest:'/home/kanishka/Desktop/node/'}).single('file'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
 
 //static resource directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -94,8 +94,8 @@ app.get("/about", (req, res)=> {
 
 //use reception router
 app.use('/reception', receptionRoute);
-app.use('/receptions', receptionsRoute);
-app.use('/interceptions', interceptionsRoute);
+app.use('/receptions',bodyParser.urlencoded({ extended: true }), receptionsRoute);
+app.use('/interceptions', bodyParser.urlencoded({ extended: true }), interceptionsRoute);
 app.use('/interception', interceptionRoute);
 app.use('/interceptiondumps', interceptionDumpsRoute);
 
